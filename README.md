@@ -6,6 +6,14 @@ In each campaign, each contributor (who sent some min ammount of ethereum) will 
 
 With the provided scripts the contract is deployed on the https://rinkeby.etherscan.io/ Ethereum network but the scipts can be easily adapted to deploy the contract on any other network (ERC-20 included).
 
+## The main languages, libraries and frameworks involved in this project
+
+* solidity
+* ganache
+* truffle
+* mocha
+* react.js
+* next.js
 
 ## How to install the required dependecies
 
@@ -32,3 +40,7 @@ export TEST_MM_MNEMONICS="<your 12-word Secret Recovery Phrase>"
 export TEST_INFURA_RINKEBY_ENDPOINT="<your API endpoint>"
 node deploy.js
 ```
+
+-----------------------------------------------------------------
+
+##### Credit to [Stephen Grider](https://github.com/StephenGrider) 
