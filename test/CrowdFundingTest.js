@@ -201,4 +201,36 @@ describe('Crowd funding campaigns', async () => {
         assert.equal(5, balanceAfter - balanceBefore);
 
     });
+
+    it('check approvals/contributors count', async () => {
+        await checkSummaryAndRequestsCount('100', 0, 0, 0, accounts[0]);
+
+        // someone contributes
+        await campaign.methods.contribute().send({
+            from: accounts[1], // another account
+            gas: '1000000',
+            value: web3.utils.toWei('1', 'ether')
+        });
+
+        await checkSummaryAndRequestsCount('100', web3.utils.toWei('1', 'ether'), 0, 1, accounts[0]);
+
+        // same account contributes again
+        await campaign.methods.contribute().send({
+            from: accounts[1], // another account
+            gas: '1000000',
+            value: web3.utils.toWei('1', 'ether')
+        });
+
+        await checkSummaryAndRequestsCount('100', web3.utils.toWei('2', 'ether'), 0, 1, accounts[0]);
+        
+        // same account contributes again
+        await campaign.methods.contribute().send({
+            from: accounts[2], // yet another account
+            gas: '1000000',
+            value: web3.utils.toWei('1', 'ether')
+        });
+
+        await checkSummaryAndRequestsCount('100', web3.utils.toWei('3', 'ether'), 0, 2, accounts[0]);
+    
+    });
 });

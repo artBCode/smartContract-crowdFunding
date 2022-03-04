@@ -62,9 +62,11 @@ contract CrowdFundingCampaign {
 
     function contribute() public payable {
         require(msg.value >= minimumContribution);
-
+        // if the same address contributes more than once it will only be counted once
+        if (!approvers[msg.sender]) {
+            approversCount++;
+        }
         approvers[msg.sender] = true;
-        approversCount++;
     }
 
     function createRequest(
@@ -102,7 +104,17 @@ contract CrowdFundingCampaign {
         request.complete = true;
     }
 
-    function getSummary() public view returns (uint, uint, uint, uint, address){
+    function getSummary()
+        public
+        view
+        returns (
+            uint256,
+            uint256,
+            uint256,
+            uint256,
+            address
+        )
+    {
         return (
             minimumContribution,
             this.balance,
@@ -112,7 +124,7 @@ contract CrowdFundingCampaign {
         );
     }
 
-    function getRequestsCount() public view returns (uint) {
+    function getRequestsCount() public view returns (uint256) {
         return requests.length;
     }
 }
