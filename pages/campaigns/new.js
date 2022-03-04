@@ -3,7 +3,7 @@ import Layout from '../../components/Layout';
 import { Form, Button, Input, Message } from 'semantic-ui-react'
 import factory from '../../ethereum/factory'
 import web3 from '../../ethereum/web3'
-import {Router} from '../../routes'
+import { Router } from '../../routes'
 
 class CampaignNew extends Component {
     state = {
@@ -21,25 +21,26 @@ class CampaignNew extends Component {
             // We assume all good. We erase the previous error if any
             errorMessage: '',
             // show the spinner on the create button
-            createCampaignInProgress: true}
+            createCampaignInProgress: true
+        }
         );
 
-        try{
+        try {
             const accounts = await web3.eth.getAccounts();
             await factory.methods
                 .createCrowdFundingCampaign(this.state.minimumContribution)
                 .send({
                     from: accounts[0]
                 });
-            
+
             // If it reaches this point it means it has been sucessfully
             // Hence, we redirect the user to the home page
             Router.pushRoute('/');
-        } catch (err){
-            this.setState({errorMessage: err.message});
+        } catch (err) {
+            this.setState({ errorMessage: err.message });
         }
 
-        this.setState({createCampaignInProgress: false});  
+        this.setState({ createCampaignInProgress: false });
 
     };
 
@@ -47,7 +48,7 @@ class CampaignNew extends Component {
         return (
             <Layout>
                 <h3>Create Crowdfunding Campaign</h3>
-                <Form onSubmit={this.onFormSubmit} error={this.state.errorMessage!==''}>
+                <Form onSubmit={this.onFormSubmit} error={this.state.errorMessage !== ''}>
                     <Form.Field>
                         <label>Minimum Contribution</label>
                         <Input
@@ -60,9 +61,9 @@ class CampaignNew extends Component {
                         />
                     </Form.Field>
 
-                    <Message 
-                        error 
-                        header='Oops!' 
+                    <Message
+                        error
+                        header='Oops!'
                         content={this.state.errorMessage}></Message>
 
                     <Button primary loading={this.state.createCampaignInProgress}>Create!</Button>
