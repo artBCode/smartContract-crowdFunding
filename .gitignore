@@ -130,5 +130,5 @@ dist
 .pnp.*
 
 .DS_Store
-deployedAddress.txt
+**/deployedContractAddress.txt
 **/build/**
