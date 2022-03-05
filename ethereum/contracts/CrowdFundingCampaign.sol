@@ -40,7 +40,7 @@ contract CrowdFundingCampaign {
 
     // list of people who contributed at least minimumContribution
     mapping(address => bool) public approvers;
-    uint256 approversCount; // remember, the mapping in solidity is very limited compared to other program. lang
+    uint256 public approversCount; // remember, the mapping in solidity is very limited compared to other program. lang
 
     Request[] public requests;
 

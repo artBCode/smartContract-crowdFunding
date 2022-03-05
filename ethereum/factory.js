@@ -3,7 +3,9 @@ import CrowdFundingFactory from './build/CrowdFundingFactory.json'
 
 const instance = new web3.eth.Contract(
     JSON.parse(CrowdFundingFactory.interface),
-    '0x8a70b5E46A26BCeb990bE9788c7C4305e8FC1FE8'
+    // REPLACE with the content of deployedContractAddress.txt
+    // which contains the latest deployed factory contract
+    '0xB9195436C751843D43b24D6D90f939C0C01cd6B0'
 );
 
 export default instance;

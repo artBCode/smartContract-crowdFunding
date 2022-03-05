@@ -66,7 +66,7 @@ class ContributeForm extends Component {
                     header='Oops!'
                     content={this.state.errorMessage}></Message>
 
-                <Button primary loading={this.state.contributionInProgress}>Create!</Button>
+                <Button primary loading={this.state.contributionInProgress}>Contribute!</Button>
             </Form>
         );
     }
