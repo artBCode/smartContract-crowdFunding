@@ -10,20 +10,25 @@ import RequestRow from '../../../components/RequestRow'
 class RequestIndex extends Component {
     //invoked on both server and browser
     static async getInitialProps(props) {
-        // console.log("getInitialProps");
         const contractAddress = props.query.address;
         const campaign = getCampaign(contractAddress);
         const requestsCount = await campaign.methods.getRequestsCount().call();
         // const request = await campaign.methods.requests(0).call();
         console.log(requestsCount);
 
-        const requests = await Promise.all(
-            Array(requestsCount)
-                .fill()
-                .map((element, index) => {
-                    return campaign.methods.requests(index).call();
-                })
-        );
+        let requests;
+        if (requestsCount > 0) {
+            requests = await Promise.all(
+                Array(parseInt(requestsCount))
+                    .fill()
+                    .map((element, index) => {
+                        return campaign.methods.requests(index).call();
+                    })
+            );
+        } else {
+            requests = [];
+        }
+
         const approversCount = await campaign.methods.approversCount().call();
 
         return {
@@ -32,19 +37,20 @@ class RequestIndex extends Component {
             requests,
             approversCount
         };
+
     }
 
     renderRows() {
         console.log(this.props.requests);
         return this.props.requests.map((request, index) => {
             return (
-            <RequestRow
-                key={index}
-                id={index}
-                request={request}
-                contractAddress={this.props.contractAddress}
-                approversCount={this.props.approversCount}
-            />);
+                <RequestRow
+                    key={index}
+                    id={index}
+                    request={request}
+                    contractAddress={this.props.contractAddress}
+                    approversCount={this.props.approversCount}
+                />);
         });
     }
 
@@ -77,12 +83,14 @@ class RequestIndex extends Component {
 
                 <Link route={`/campaigns/${this.props.contractAddress}/requests/new`}>
                     <a>
-                        <Button primary>Add request</Button>
+                        <Button primary floated='right' style={{marginBottom:10}}>Add request</Button>
                     </a>
                 </Link>
 
                 <br />
                 {this.renderTable()}
+                <br />
+                <div>Total: {this.props.requestsCount} requests</div>
 
             </Layout>
         );

@@ -4,7 +4,7 @@ pragma solidity ^0.4.17;
 contract CrowdFundingFactory {
     address[] public deployedCrowdFunds;
 
-    function createCrowdFundingCampaign(uint256 minimumContribution) {
+    function createCrowdFundingCampaign(uint256 minimumContribution) public {
         // the addres invoking this method will become the manager of the new instance of the contract
         address newCampaign = new CrowdFundingCampaign(
             minimumContribution,

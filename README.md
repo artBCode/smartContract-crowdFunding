@@ -41,6 +41,24 @@ export TEST_INFURA_RINKEBY_ENDPOINT="<your API endpoint>"
 node deploy.js
 ```
 
+At the end of the deployment the address of the deployed contract will be printed on the terminal and also stored in `ethereum\deployedContractAddress.txt` file.
+
+## Run the web GUI
+Before running the GUI you might want to ensure the `ethereum/factory.js` contains the address of the smart contract (factory) you want the GUI to interact with. The default value is an address of a test contract.
+
+In case you want to bind the GUI to **your** lastest deployed contract, its address can be found in `ethereum\deployedContractAddress.txt`.
+
+```
+npm run dev
+```
+
+## Access the web GUI
+http://localhost:3000/
+
+
+
+
+
 -----------------------------------------------------------------
 
 ##### Credit to [Stephen Grider](https://github.com/StephenGrider) 
